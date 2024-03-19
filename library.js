@@ -31,8 +31,14 @@ const library = {
 // p01: Coding Music - 2 tracks
 // p02: Other Playlist - 1 tracks
 const printPlaylists = function() {
-
-}
+       for (key in library.playlists) {
+              let playlistNumber = key;
+              let name = library.playlists[key].name;
+              let numberTracks = library.playlists[key].tracks.length;  
+              console.log(`${playlistNumber}: ${name} - ${numberTracks} tracks`);
+            }  
+};
+       
 
 
 // prints a list of all tracks, using the following format:
@@ -40,8 +46,14 @@ const printPlaylists = function() {
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 // t03: Four Thirty-Three by John Cage (Woodstock 1952)
 const printTracks = function() {
-
-}
+       for (key in library.tracks) {
+              let trackNumber = key;
+              let artist = library.tracks[key].artist;
+              let name = library.tracks[key].name;
+              let album = library.tracks[key].album;
+              console.log(`${trackNumber}: ${name} by ${artist} (${album})` );
+          }
+};
 
 
 // prints a list of tracks for a given playlist, using the following format:
@@ -49,14 +61,23 @@ const printTracks = function() {
 // t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
 // t02: Model View Controller by James Dempsey (WWDC 2003)
 const printPlaylist = function(playlistId) {
-
-}
+       let playlistName = library.playlists[playlistId].name;
+       let numberTracks = library.playlists[playlistId].tracks.length;
+       console.log(`${playlistId}: ${playlistName} - ${numberTracks} tracks`);
+       for (key of library.playlists[playlistId].tracks) {
+           let songTitle = library.tracks[key].name;
+           let artist = library.tracks[key].artist;
+           let album = library.tracks[key].album;
+           console.log(`${key}: ${songTitle} by ${artist} (${album})`);
+       }
+};
 
 
 // adds an existing track to an existing playlist
 const addTrackToPlaylist = function(trackId, playlistId) {
-
-}
+       library.playlists[playlistId].tracks.push(trackId);
+       console.log(`${trackId} was added to playlist ${playlistId}`);
+     };
 
 
 // generates a unique id
@@ -68,13 +89,25 @@ const generateUid = function() {
 
 // adds a track to the library
 const addTrack = function(name, artist, album) {
-
+       let uniqueID = uid();
+       library.tracks[uniqueID] = {
+           id: uniqueID,
+           album: album,
+           artist: artist,
+           name: name
+       }
+       console.log(library.tracks);
 }
 
 
 // adds a playlist to the library
 const addPlaylist = function(name) {
-
+       let uniqueID = uid();
+       library.playlists[uniqueID] = {
+           id: uniqueID,
+           name: name,
+           tracks: []
+       }
 }
 
 
